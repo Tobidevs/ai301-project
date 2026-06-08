@@ -1,27 +1,25 @@
-# Contribution [#]: [Issue Title]
+# Contribution [#]: Render each page in a different element
 
 **Contribution Number:** [1 / 2 / 3]  
-**Student:** [Your Name]  
-**Issue:** [GitHub issue link]  
-**Status:** [Phase I / Phase II / Phase III / Phase IV] [In Progress / Complete]
+**Student:** Tobi Akere
+**Issue:** [Github URL](https://github.com/vivliostyle/vivliostyle.js/issues/1235)
+**Status:** Phase 1
 
 ---
 
 ## Why I Chose This Issue
-
-[1-2 paragraphs explaining why this issue interests you, how it matches your skills/learning goals, what you hope to learn]
-
+I have solid experience in typescript, and seems like an interesting fix that can be done quickly to get back on track with the program.
 ---
 
 ## Understanding the Issue
 
 ### Problem Description
 
-[In your own words, what's broken or missing?]
+the current implementation is each page is renderer in a single element, and the person would like to be able to see the document each page in the bottom of the other, like in a PDF viewer.
 
 ### Expected Behavior
 
-[What should happen?]
+See the document each page in the bottom of the other, like in a PDF viewer.
 
 ### Current Behavior
 
