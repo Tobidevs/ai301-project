@@ -148,10 +148,11 @@ reachable via the core API option.
 
 ### Code Changes
 
-- **Development branch:** `feat/continuous-scroll-page-view-mode` (local
-  clone of `vivliostyle/vivliostyle.js`, pending push to fork)
-- **Key commit:** `0955643c7b795fbc149d0e17806b1276f528b812` —
+- **Development branch:** [`feat/continuous-scroll-page-view-mode`](https://github.com/Tobidevs/vivliostyle.js/tree/feat/continuous-scroll-page-view-mode)
+  (fork: `Tobidevs/vivliostyle.js`)
+- **Key commit:** [`0955643`](https://github.com/Tobidevs/vivliostyle.js/commit/0955643c7b795fbc149d0e17806b1276f528b812) —
   *feat(core): add continuousScroll page view mode*
+- **Compare / PR-ready diff:** [`master...feat/continuous-scroll-page-view-mode`](https://github.com/vivliostyle/vivliostyle.js/compare/master...Tobidevs:vivliostyle.js:feat/continuous-scroll-page-view-mode)
 - **Files modified:**
   - `packages/core/src/vivliostyle/adaptive-viewer.ts` — enum value,
     `data-vivliostyle-continuous-scroll` attribute, `showAllPages`,
@@ -168,7 +169,8 @@ reachable via the core API option.
 
 ## Pull Request
 
-**PR Link:** [GitHub PR URL when submitted]
+**PR Link:** Not yet submitted. Branch pushed to fork and ready to open via
+[`master...Tobidevs:feat/continuous-scroll-page-view-mode`](https://github.com/vivliostyle/vivliostyle.js/compare/master...Tobidevs:vivliostyle.js:feat/continuous-scroll-page-view-mode)
 
 **PR Description:** [Draft or final PR description - much of the content above can be adapted]
 
@@ -176,7 +178,8 @@ reachable via the core API option.
 - [Date]: [Summary of feedback received]
 - [Date]: [How you addressed it]
 
-**Status:** [Awaiting review / Iterating / Approved / Merged]
+**Status:** Not yet submitted (branch pushed to fork; manual browser
+validation pending before opening the PR)
 
 ---
 
