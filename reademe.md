@@ -92,38 +92,77 @@ Using UMPIRE framework (adapted):
 
 ## Testing Strategy
 
-### Unit Tests
+### Validation Performed So Far
 
-- [ ] Test case 1: [Description]
-- [ ] Test case 2: [Description]
-- [ ] Test case 3: [Description]
+- **Type checking:** Ran `tsc --noEmit` on `packages/core` — passes with no
+  errors after the changes.
+- **Build:** Ran `yarn build` for `@vivliostyle/core` (tsc declarations +
+  esbuild bundle) — builds cleanly.
+- **Formatting/lint:** Ran Prettier on the changed files; the pre-commit
+  hook (lint-staged) passed on commit.
 
-### Integration Tests
+### Planned / Remaining
 
-- [ ] Integration scenario 1
-- [ ] Integration scenario 2
-
-### Manual Testing
-
-[What you tested manually and results]
+- [ ] Manual browser test: load a multi-page EPUB in the viewer with
+  `pageViewMode: "continuousScroll"` and confirm all pages render stacked
+  top-to-bottom and scroll smoothly.
+- [ ] Regression check: confirm `singlePage`, `spread`, and `autoSpread`
+  modes are unaffected, including switching to/from continuous scroll.
+- [ ] Verify zoom / fit-to-screen behavior fits page width in the new mode.
+- [ ] Add unit/integration coverage for the new rendering path.
 
 ---
 
 ## Implementation Notes
 
-### Week [X] Progress
+### Progress Summary
 
-[What you built this week, challenges faced, decisions made]
+Implemented a new `continuousScroll` page view mode in the Vivliostyle core
+engine. While tracing the rendering path I found that, with the existing
+`renderAllPages` option, every page is *already* rendered into its own
+container element inside the viewport's spread container — but all pages
+except the current one (or current spread) are hidden with `display: none`.
+So the fix did not require a new per-page element pipeline; it required a
+mode that reveals all of those existing page elements and stacks them
+vertically.
 
-### Week [Y] Progress
+The new mode:
+- Adds `CONTINUOUS_SCROLL = "continuousScroll"` to the `PageViewMode` enum
+  and exposes it through the public `pageViewMode` option.
+- Reveals every rendered page (instead of hiding non-current ones) and lays
+  them out in a single vertical column.
+- Scrolls the current page into view on navigation instead of swapping the
+  content of a shared element.
+- Sizes the zoom box to fit page width and the summed page heights so the
+  whole document scrolls like a PDF viewer.
+- Forces `renderAllPages` on, since all pages must exist to be stacked.
 
-[Continue documenting as you work]
+**Decisions:** Reused the existing page-container elements and the
+`data-vivliostyle-*` attribute pattern (mirroring `spread-view`) rather than
+introducing a new DOM structure, keeping the change small and consistent
+with the codebase. Interaction (hyperlink) listeners are currently attached
+to the current page only, matching existing behavior; extending them to all
+visible pages is a noted follow-up. Exposing the mode through the viewer UI
+(settings panel toggle + i18n) is also a follow-up — the mode is currently
+reachable via the core API option.
 
 ### Code Changes
 
-- **Files modified:** [List]
-- **Key commits:** [Links to important commits]
-- **Approach decisions:** [Why you chose certain approaches]
+- **Development branch:** `feat/continuous-scroll-page-view-mode` (local
+  clone of `vivliostyle/vivliostyle.js`, pending push to fork)
+- **Key commit:** `0955643c7b795fbc149d0e17806b1276f528b812` —
+  *feat(core): add continuousScroll page view mode*
+- **Files modified:**
+  - `packages/core/src/vivliostyle/adaptive-viewer.ts` — enum value,
+    `data-vivliostyle-continuous-scroll` attribute, `showAllPages`,
+    `hideAllPages`, `scrollToPage`, `setContinuousScrollZoom`, integration
+    into `showCurrent`, and forcing `renderAllPages`.
+  - `packages/core/src/vivliostyle/epub.ts` — `OPFView.forAllPages()` helper
+    to iterate every rendered page in spine order.
+  - `packages/core/src/vivliostyle/assets.ts` — CSS to stack page containers
+    vertically when the mode is active.
+  - `packages/core/src/vivliostyle/core-viewer.ts` — documented the new
+    `pageViewMode` option.
 
 ---
 
