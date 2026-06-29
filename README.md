@@ -148,11 +148,15 @@ reachable via the core API option.
 
 ### Code Changes
 
-- **Development branch:** [`feat/continuous-scroll-page-view-mode`](https://github.com/Tobidevs/vivliostyle.js/tree/feat/continuous-scroll-page-view-mode)
+- **Original fix branch:** [`feat/continuous-scroll-page-view-mode`](https://github.com/Tobidevs/vivliostyle.js/tree/feat/continuous-scroll-page-view-mode)
   (fork: `Tobidevs/vivliostyle.js`)
-- **Key commit:** [`0955643`](https://github.com/Tobidevs/vivliostyle.js/commit/0955643c7b795fbc149d0e17806b1276f528b812) —
+- **Original key commit:** [`0955643`](https://github.com/Tobidevs/vivliostyle.js/commit/0955643c7b795fbc149d0e17806b1276f528b812) —
   *feat(core): add continuousScroll page view mode*
-- **Compare / PR-ready diff:** [`master...feat/continuous-scroll-page-view-mode`](https://github.com/vivliostyle/vivliostyle.js/compare/master...Tobidevs:vivliostyle.js:feat/continuous-scroll-page-view-mode)
+- **PR branch:** [`feature/continuous-page-scroll-view-mode`](https://github.com/Tobidevs/vivliostyle.js/tree/feature/continuous-page-scroll-view-mode)
+  (clean cherry-pick onto current upstream `master`)
+- **PR commit:** [`22f428f`](https://github.com/Tobidevs/vivliostyle.js/commit/22f428f1) —
+  *feat(core): add continuousScroll page view mode*
+- **Pull request:** [vivliostyle/vivliostyle.js#2028](https://github.com/vivliostyle/vivliostyle.js/pull/2028)
 - **Files modified:**
   - `packages/core/src/vivliostyle/adaptive-viewer.ts` — enum value,
     `data-vivliostyle-continuous-scroll` attribute, `showAllPages`,
@@ -169,17 +173,37 @@ reachable via the core API option.
 
 ## Pull Request
 
-**PR Link:** Not yet submitted. Branch pushed to fork and ready to open via
-[`master...Tobidevs:feat/continuous-scroll-page-view-mode`](https://github.com/vivliostyle/vivliostyle.js/compare/master...Tobidevs:vivliostyle.js:feat/continuous-scroll-page-view-mode)
+**PR Link:** [https://github.com/vivliostyle/vivliostyle.js/pull/2028](https://github.com/vivliostyle/vivliostyle.js/pull/2028)
 
-**PR Description:** [Draft or final PR description - much of the content above can be adapted]
+**PR Description:** Adds a new `continuousScroll` value to `PageViewMode` so
+multi-page documents can be viewed in a PDF-like vertical scroll mode. The PR
+reuses Vivliostyle's existing rendered page containers, reveals all rendered
+pages in document order, scrolls the active page into view on navigation, adds
+the viewport styling for stacked pages, and documents the new core option.
+
+**What I contributed:**
+- Located the existing fix commit
+  [`0955643`](https://github.com/Tobidevs/vivliostyle.js/commit/0955643c7b795fbc149d0e17806b1276f528b812)
+  on the fork branch
+  [`feat/continuous-scroll-page-view-mode`](https://github.com/Tobidevs/vivliostyle.js/tree/feat/continuous-scroll-page-view-mode).
+- Found that the original branch produced a noisy diff against upstream
+  `master` because it was based on older history.
+- Created a clean branch,
+  [`feature/continuous-page-scroll-view-mode`](https://github.com/Tobidevs/vivliostyle.js/tree/feature/continuous-page-scroll-view-mode),
+  from current upstream `master` and cherry-picked only the continuous-scroll
+  fix as commit
+  [`22f428f`](https://github.com/Tobidevs/vivliostyle.js/commit/22f428f1).
+- Verified the cleaned branch with `yarn workspace @vivliostyle/core build`
+  and `yarn workspace @vivliostyle/core test` (600/600 Chrome Headless tests
+  passed).
 
 **Maintainer Feedback:**
 - [Date]: [Summary of feedback received]
 - [Date]: [How you addressed it]
 
-**Status:** Not yet submitted (branch pushed to fork; manual browser
-validation pending before opening the PR)
+**Status:** PR opened and awaiting maintainer review. Manual browser validation
+of the viewer UI remains a follow-up because this contribution currently
+exposes the mode through the core API option rather than a viewer settings UI.
 
 ---
 
